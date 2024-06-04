@@ -195,3 +195,20 @@ test('Submit the Register Form with Empty Confirm Password Input Field', async (
    expect(page.url()).toBe('http://localhost:3000/register');
 
 });
+
+
+test('Submit the Register Form with Empty Different Password Input Field', async ({page}) => {
+    await page.goto('http://localhost:3000/register');
+    await page.fill('#email', 'sofi@abv.bg');
+    await page.fill('#password', '123456');
+    await page.fill('#repeat-pass', '123457');
+    await page.click('#register-form > fieldset > input');
+    page.on('dialog', async dialog => {
+        expect(dialog.type()).toContain('Alert');
+        expect(dialog.message()).toContain("Passwords don't match!");
+        await dialog.accept();
+    })
+    await page.$('a[href="/register"]');
+   expect(page.url()).toBe('http://localhost:3000/register');
+
+});
