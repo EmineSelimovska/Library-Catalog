@@ -63,4 +63,17 @@ test('Verify That the "Add Books" Link Is Visible after user login', async ({pag
 
 });
 
+test('Verify That the user email address is Visible after user login', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.fill('#password', '123456');
+    await page.click('#login-form > fieldset > input')
+   const email = await page.$('#user > span');
+   const isUserEmailVisible = await email.isVisible();
+   expect(isUserEmailVisible).toEqual(true);
+
+});
+
+
+
 
