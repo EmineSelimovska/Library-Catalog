@@ -59,7 +59,7 @@ test('Verify That the "Add Books" Link Is Visible after user login', async ({pag
     await page.click('#login-form > fieldset > input')
    const addBooks = await page.$('a[href="/create"]');
    const isAddBooksVisible = await addBooks.isVisible();
-   expect(isAddBooksVisible).toEqual(true);
+   expect(isAddBooksVisible).toBe(true);
 
 });
 
@@ -99,4 +99,31 @@ test('Submit the Form with Empty Input Fields', async ({page}) => {
 });
 
 
+test('Submit the Form with Empty Email Input Field', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#password', '123456');
+    await page.click('#login-form > fieldset > input');
+    page.on('dialog', async dialog => {
+        expect(dialog.type()).toContain('Alert');
+        expect(dialog.message()).toContain('All fields are required!');
+        await dialog.accept();
+    })
+    await page.$('a[href="/login"]');
+   expect(page.url()).toBe('http://localhost:3000/login');
+
+});
+
+test('Submit the Form with Empty Password Input Field', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.click('#login-form > fieldset > input');
+    page.on('dialog', async dialog => {
+        expect(dialog.type()).toContain('Alert');
+        expect(dialog.message()).toContain('All fields are required!');
+        await dialog.accept();
+    })
+    await page.$('a[href="/login"]');
+   expect(page.url()).toBe('http://localhost:3000/login');
+
+});
 
