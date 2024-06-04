@@ -139,3 +139,15 @@ test('Submit the Register Form with Valid Values', async ({page}) => {
    expect(page.url('http://localhost:3000/catalog'));
 });
 
+test('Submit the Register Form with Empty Input Fields', async ({page}) => {
+    await page.goto('http://localhost:3000/register');
+    await page.click('#register-form > fieldset > input')
+    page.on('dialog', async dialog => {
+        expect(dialog.type()).toContain('Alert');
+        expect(dialog.message()).toContain('All fields are required!');
+        await dialog.accept();
+    })
+    await page.$('a[href="/register"]');
+   expect(page.url()).toBe('http://localhost:3000/register');
+
+});
