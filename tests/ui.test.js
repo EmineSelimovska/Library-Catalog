@@ -29,3 +29,38 @@ test('Verify Register Button is visible', async ({page}) => {
    expect(isRegisterButtonVisible).toBe(true);
 
 });
+
+test('Verify That the "All Books" Link Is Visible after user login', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.fill('#password', '123456');
+    await page.click('#login-form > fieldset > input')
+   const allBooks = await page.$('a[href="/catalog"]');
+   const isAllBooksVisible = await allBooks.isVisible();
+   expect(isAllBooksVisible).toBe(true);
+
+});
+
+test('Verify That the "My Books" Link Is Visible after user login', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.fill('#password', '123456');
+    await page.click('#login-form > fieldset > input')
+   const myBooks = await page.$('a[href="/profile"]');
+   const isMyBooksVisible = await myBooks.isVisible();
+   expect(isMyBooksVisible).toEqual(true);
+
+});
+
+test('Verify That the "Add Books" Link Is Visible after user login', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.fill('#password', '123456');
+    await page.click('#login-form > fieldset > input')
+   const addBooks = await page.$('a[href="/create"]');
+   const isAddBooksVisible = await addBooks.isVisible();
+   expect(isAddBooksVisible).toEqual(true);
+
+});
+
+
