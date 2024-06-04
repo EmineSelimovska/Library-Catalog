@@ -85,5 +85,18 @@ test('Login with valid credentials', async ({page}) => {
 
 });
 
+test('Submit the Form with Empty Input Fields', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.click('#login-form > fieldset > input')
+    page.on('dialog', async dialog => {
+        expect(dialog.type()).toContain('Alert');
+        expect(dialog.message()).toContain('All fields are required!');
+        await dialog.accept();
+    })
+    await page.$('a[href="/login"]');
+   expect(page.url()).toBe('http://localhost:3000/login');
+
+});
+
 
 
