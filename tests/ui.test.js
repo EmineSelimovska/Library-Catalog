@@ -74,6 +74,16 @@ test('Verify That the user email address is Visible after user login', async ({p
 
 });
 
+test('Login with valid credentials', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.fill('#password', '123456');
+    await page.click('#login-form > fieldset > input')
+    await page.$('a[href="/catalog"]');
+ 
+   expect(page.url()).toBe('http://localhost:3000/catalog');
+
+});
 
 
 
