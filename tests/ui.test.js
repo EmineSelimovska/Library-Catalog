@@ -127,3 +127,15 @@ test('Submit the Form with Empty Password Input Field', async ({page}) => {
 
 });
 
+
+test('Submit the Register Form with Valid Values', async ({page}) => {
+    await page.goto('http://localhost:3000/register');
+    await page.fill('#email', 'sofi@abv.bg');
+    await page.fill('#password', '123456');
+    await page.fill('#repeat-pass', '123456')
+    await page.click('#register-form > fieldset > input')
+    await page.$('a[href="/catalog"]');
+ 
+   expect(page.url('http://localhost:3000/catalog'));
+});
+
