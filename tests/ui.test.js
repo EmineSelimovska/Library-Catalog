@@ -355,3 +355,19 @@ test("Verify That Logged-In User Sees Details Button and Button Works Correctly"
     const detailsPageTitle = await page.textContent(".book-information h3");
     expect(detailsPageTitle).toBe("Test Book");
   });
+
+
+
+  test("Verify That the logout button redirects correctly", async ({ page }) => {
+    await page.goto("http://localhost:3000/login");
+    await page.fill("#email", "peter@abv.bg");
+    await page.fill("#password", "123456");
+    await page.click('input[type="submit"]');
+      
+    const logoutLink = await page.$('a[href="javascript:void(0)"]');
+    await logoutLink.click();
+
+    const redirectURL = page.url();
+    expect(redirectURL).toBe('http://localhost:3000/catalog');
+  });
+
