@@ -356,6 +356,20 @@ test("Verify That Logged-In User Sees Details Button and Button Works Correctly"
     expect(detailsPageTitle).toBe("Test Book");
   });
 
+  
+test("Verify That Guest User Sees Details Button and Button Works Correctly", async ({ page }) => {
+    await page.goto("http://localhost:3000/login");
+   
+    await page.click('a[href="/catalog"]')
+    await page.waitForSelector(".otherBooks");
+
+    await page.click('.otherBooks a.button')
+    await page.waitForSelector(".book-information");
+
+    const detailsPageTitle = await page.textContent(".book-information h3");
+    expect(detailsPageTitle).toBe("Test Book");
+  });
+
 
 
   test("Verify That the logout button redirects correctly", async ({ page }) => {
