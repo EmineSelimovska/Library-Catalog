@@ -212,3 +212,25 @@ test('Submit the Register Form with Empty Different Password Input Field', async
    expect(page.url()).toBe('http://localhost:3000/register');
 
 });
+
+test('Add book with correct data', async ({page}) => {
+    await page.goto('http://localhost:3000/login');
+    await page.fill('#email', 'peter@abv.bg');
+    await page.fill('#password', '123456');
+
+    await Promise.all([
+     page.click('input[type="submit"]'),
+     page.waitForURL('http://localhost:3000/catalog')
+    ]);
+    await page.click('a[href="/create"]');
+    await page.waitForSelector('#create-form');
+    await page.fill('#title', 'Test Book');
+    await page.fill('#description', 'This is a test book description');
+    await page.fill('#image', 'https://w7.pngwing.com/pngs/194/920/png-transparent-wall-black-crack-white-hand-festive-elements-thumbnail.png');
+    await page.selectOption('#type', 'Fiction');
+    await page.click('#create-form > fieldset > input')
+  
+    await page.waitForURL('http://localhost:3000/catalog');
+    expect(page.url()).toBe('http://localhost:3000/catalog');
+
+});
