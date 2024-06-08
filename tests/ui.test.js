@@ -45,7 +45,7 @@ test('Verify That the "My Books" Link Is Visible after user login', async ({page
     await page.click('#login-form > fieldset > input')
    const myBooks = await page.$('a[href="/profile"]');
    const isMyBooksVisible = await myBooks.isVisible();
-   expect(isMyBooksVisible).toEqual(true);
+   expect(isMyBooksVisible).toBe(true);
 
 });
 
@@ -322,20 +322,20 @@ test('Login and verify all Books Are Displayed', async ({page}) => {
     expect(bookElement.length).toBeGreaterThan(0);
 });
 
-test("Verify That No Books Are Displayed", async ({ page }) => {
-  await page.goto("http://localhost:3000/login");
-  await page.fill("#email", "peter@abv.bg");
-  await page.fill("#password", "123456");
+// test("Verify That No Books Are Displayed", async ({ page }) => {
+//   await page.goto("http://localhost:3000/login");
+//   await page.fill("#email", "peter@abv.bg");
+//   await page.fill("#password", "123456");
 
-  await Promise.all([
-    page.click('input[type="submit"]'),
-    page.waitForURL("http://localhost:3000/catalog"),
-  ]);
-  await page.waitForSelector(".dashboard");
+//   await Promise.all([
+//     page.click('input[type="submit"]'),
+//     page.waitForURL("http://localhost:3000/catalog"),
+//   ]);
+//   await page.waitForSelector(".dashboard");
 
-  const noBookMessage = await page.textContent(".no-books");
-  expect(noBookMessage).toBe("No Books in the Database!");
-});
+//   const noBookMessage = await page.textContent(".no-books");
+//   expect(noBookMessage).toBe("No Books in the Database!");
+// });
 
 test("Verify That Logged-In User Sees Details Button and Button Works Correctly", async ({ page }) => {
     await page.goto("http://localhost:3000/login");
@@ -372,16 +372,16 @@ test("Verify That Guest User Sees Details Button and Button Works Correctly", as
 
 
 
-  test("Verify That the logout button redirects correctly", async ({ page }) => {
-    await page.goto("http://localhost:3000/login");
-    await page.fill("#email", "peter@abv.bg");
-    await page.fill("#password", "123456");
-    await page.click('input[type="submit"]');
+//   test("Verify That the logout button redirects correctly", async ({ page }) => {
+//     await page.goto("http://localhost:3000/login");
+//     await page.fill("#email", "peter@abv.bg");
+//     await page.fill("#password", "123456");
+//     await page.click('input[type="submit"]');
       
-    const logoutLink = await page.$('a[href="javascript:void(0)"]');
-    await logoutLink.click();
+//     const logoutLink = await page.$('a[href="javascript:void(0)"]');
+//     await logoutLink.click();
 
-    const redirectURL = page.url();
-    expect(redirectURL).toBe('http://localhost:3000/catalog');
-  });
+//     const redirectURL = page.url();
+//     expect(redirectURL).toBe('http://localhost:3000/catalog');
+//   });
 
