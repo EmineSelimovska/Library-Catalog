@@ -26,8 +26,8 @@ jobs:
       run: npm install
     - name: Install playwright
       run: npm run play
-    - name: Run Front End
-      run: npm run startFe
+    # - name: Run Front End
+    #   run: npm run startFe
     # - name: Run Server 
     #   run: npm run startBe
     - name: Run UI tests
