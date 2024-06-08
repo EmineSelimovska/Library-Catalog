@@ -24,6 +24,10 @@ jobs:
         cache: 'npm'
     - name: Install dependancies
       run: npm install
+    - name: Run Front End
+      run: npm run startFe
+    - name: Run Server 
+      run: npm run Back End
     - name: Run UI tests
       run: npm run test-play
    
