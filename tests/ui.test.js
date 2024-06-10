@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect} = require("@playwright/test");
 
 test('Verify All books link is visible', async ({page}) => {
     await page.goto('http://localhost:3000');
@@ -29,9 +29,9 @@ test('Verify Register Button is visible', async ({page}) => {
 
 test('Verify That the "All Books" Link Is Visible after user login', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.fill('#password', '123456');
-    await page.click('#login-form > fieldset > input')
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('input[type="submit"]');
    const allBooks = await page.$('a[href="/catalog"]');
    const isAllBooksVisible = await allBooks.isVisible();
    expect(isAllBooksVisible).toBe(true);
@@ -40,9 +40,9 @@ test('Verify That the "All Books" Link Is Visible after user login', async ({pag
 
 test('Verify That the "My Books" Link Is Visible after user login', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.fill('#password', '123456');
-    await page.click('#login-form > fieldset > input')
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('input[type="submit"]');
    const myBooks = await page.$('a[href="/profile"]');
    const isMyBooksVisible = await myBooks.isVisible();
    expect(isMyBooksVisible).toBe(true);
@@ -51,9 +51,9 @@ test('Verify That the "My Books" Link Is Visible after user login', async ({page
 
 test('Verify That the "Add Books" Link Is Visible after user login', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.fill('#password', '123456');
-    await page.click('#login-form > fieldset > input')
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('input[type="submit"]')
    const addBooks = await page.$('a[href="/create"]');
    const isAddBooksVisible = await addBooks.isVisible();
    expect(isAddBooksVisible).toBe(true);
@@ -62,9 +62,9 @@ test('Verify That the "Add Books" Link Is Visible after user login', async ({pag
 
 test('Verify That the user email address is Visible after user login', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.fill('#password', '123456');
-    await page.click('#login-form > fieldset > input')
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('input[type="submit"]')
    const email = await page.$('#user > span');
    const isUserEmailVisible = await email.isVisible();
    expect(isUserEmailVisible).toEqual(true);
@@ -73,9 +73,9 @@ test('Verify That the user email address is Visible after user login', async ({p
 
 test('Login with valid credentials', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.fill('#password', '123456');
-    await page.click('#login-form > fieldset > input')
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('input[type="submit"]');
     await page.$('a[href="/catalog"]');
 
    expect(page.url()).toBe('http://localhost:3000/catalog');
@@ -84,7 +84,7 @@ test('Login with valid credentials', async ({page}) => {
 
 test('Submit the Form with Empty Input Fields', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.click('#login-form > fieldset > input')
+    await page.click('input[type="submit"]')
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
         expect(dialog.message()).toContain('All fields are required!');
@@ -97,8 +97,8 @@ test('Submit the Form with Empty Input Fields', async ({page}) => {
 
 test('Submit the Form with Empty Email Input Field', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#password', '123456');
-    await page.click('#login-form > fieldset > input');
+    await page.fill('input[name="password"]', '123456');
+    await page.click('input[type="submit"]')
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
         expect(dialog.message()).toContain('All fields are required!');
@@ -111,8 +111,8 @@ test('Submit the Form with Empty Email Input Field', async ({page}) => {
 
 test('Submit the Form with Empty Password Input Field', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.click('#login-form > fieldset > input');
+    await page.fill('input[name="email"]', '123456');
+    await page.click('input[type="submit"]')
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
         expect(dialog.message()).toContain('All fields are required!');
@@ -125,10 +125,10 @@ test('Submit the Form with Empty Password Input Field', async ({page}) => {
 
 test('Submit the Register Form with Valid Values', async ({page}) => {
     await page.goto('http://localhost:3000/register');
-    await page.fill('#email', 'sofi@abv.bg');
-    await page.fill('#password', '123456');
-    await page.fill('#repeat-pass', '123456')
-    await page.click('#register-form > fieldset > input')
+    await page.fill('input[type="email"]', 'sofi@abv.bg');
+    await page.fill('input[type="password"]', '123456');
+    await page.fill('input[type="repeat-pass"]', '123456')
+    await page.click('input[type="submit"]')
     await page.$('a[href="/catalog"]');
 
    expect(page.url('http://localhost:3000/catalog'));
@@ -149,7 +149,7 @@ test('Submit the Register Form with Empty Input Fields', async ({page}) => {
 
 test('Submit the Register Form with Empty Email Input Field', async ({page}) => {
     await page.goto('http://localhost:3000/register');
-    await page.fill('#password', '123456');
+    await page.fill('input[type="password"]', '123456');
     await page.click('#register-form > fieldset > input');
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
@@ -169,7 +169,7 @@ test('Submit the Register Form with Empty Password Input Field', async ({page}) 
         expect(dialog.type()).toContain('Alert');
         expect(dialog.message()).toContain('All fields are required!');
         await dialog.accept();
-    })
+    });
     await page.$('a[href="/register"]');
    expect(page.url()).toBe('http://localhost:3000/register');
 
@@ -184,7 +184,7 @@ test('Submit the Register Form with Empty Confirm Password Input Field', async (
         expect(dialog.type()).toContain('Alert');
         expect(dialog.message()).toContain('All fields are required!');
         await dialog.accept();
-    })
+    });
     await page.$('a[href="/register"]');
    expect(page.url()).toBe('http://localhost:3000/register');
 
@@ -200,7 +200,7 @@ test('Submit the Register Form with Empty Different Password Input Field', async
         expect(dialog.type()).toContain('Alert');
         expect(dialog.message()).toContain("Passwords don't match!");
         await dialog.accept();
-    })
+    });
     await page.$('a[href="/register"]');
    expect(page.url()).toBe('http://localhost:3000/register');
 
@@ -322,20 +322,20 @@ test('Login and verify all Books Are Displayed', async ({page}) => {
     expect(bookElement.length).toBeGreaterThan(0);
 });
 
-// test("Verify That No Books Are Displayed", async ({ page }) => {
-//   await page.goto("http://localhost:3000/login");
-//   await page.fill("#email", "peter@abv.bg");
-//   await page.fill("#password", "123456");
+test("Verify That No Books Are Displayed", async ({ page }) => {
+  await page.goto("http://localhost:3000/login");
+  await page.fill("#email", "peter@abv.bg");
+  await page.fill("#password", "123456");
 
-//   await Promise.all([
-//     page.click('input[type="submit"]'),
-//     page.waitForURL("http://localhost:3000/catalog"),
-//   ]);
-//   await page.waitForSelector(".dashboard");
+  await Promise.all([
+    page.click('input[type="submit"]'),
+    page.waitForURL("http://localhost:3000/catalog"),
+  ]);
+  await page.waitForSelector(".dashboard");
 
-//   const noBookMessage = await page.textContent(".no-books");
-//   expect(noBookMessage).toBe("No Books in the Database!");
-// });
+  const noBookMessage = await page.textContent(".no-books");
+  expect(noBookMessage).toBe("No Books in the Database!");
+});
 
 test("Verify That Logged-In User Sees Details Button and Button Works Correctly", async ({ page }) => {
     await page.goto("http://localhost:3000/login");
@@ -372,16 +372,16 @@ test("Verify That Guest User Sees Details Button and Button Works Correctly", as
 
 
 
-//   test("Verify That the logout button redirects correctly", async ({ page }) => {
-//     await page.goto("http://localhost:3000/login");
-//     await page.fill("#email", "peter@abv.bg");
-//     await page.fill("#password", "123456");
-//     await page.click('input[type="submit"]');
+  test("Verify That the logout button redirects correctly", async ({ page }) => {
+    await page.goto("http://localhost:3000/login");
+    await page.fill("#email", "peter@abv.bg");
+    await page.fill("#password", "123456");
+    await page.click('input[type="submit"]');
       
-//     const logoutLink = await page.$('a[href="javascript:void(0)"]');
-//     await logoutLink.click();
+    const logoutLink = await page.$('a[href="javascript:void(0)"]');
+    await logoutLink.click();
 
-//     const redirectURL = page.url();
-//     expect(redirectURL).toBe('http://localhost:3000/catalog');
-//   });
+    const redirectURL = page.url();
+    expect(redirectURL).toBe('http://localhost:3000/catalog');
+  });
 
