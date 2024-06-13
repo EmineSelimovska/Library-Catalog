@@ -325,14 +325,14 @@ test('Login and verify all Books Are Displayed', async ({page}) => {
 
 test("Verify That No Books Are Displayed", async ({ page }) => {
   await page.goto("http://localhost:3000/login");
-  await page.fill("#email", "peter@abv.bg");
-  await page.fill("#password", "123456");
+  await page.fill('input[name="email"]', 'peter@abv.bg');
+  await page.fill('input[name="password"]', '123456');
 
   await Promise.all([
     page.click('input[type="submit"]'),
     page.waitForURL("http://localhost:3000/catalog"),
   ]);
-  await page.waitForSelector(".dashboard");
+  await page.waitForSelector("#dashboard-page");
 
   const noBookMessage = await page.textContent(".no-books");
   expect(noBookMessage).toBe("No Books in the Database!");
