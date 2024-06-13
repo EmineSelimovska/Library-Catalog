@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build_and_tests:
 
     runs-on: ubuntu-latest
 
@@ -34,4 +34,37 @@ jobs:
       run : npx playwright install
     - name: Run UI tests
       run: npm run test-play
-   
+
+  deploy_backend:
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main'
+        needs: build_and_tests
+        steps:
+          - name: Checkout of repo
+            uses: actions/checkout@v4
+          - name: Deploy to production
+            uses: JorgeLNJunior/render-deploy@v1.4.4
+            with:
+              service-id: ${{ secrets.BACK_END_API_KEY }}
+              api-key: ${{ secrets.RENDER_KEY}}
+              clear_cache: true
+              wait_deploy: true
+              github_token: ${{secrets.GH_TOKEN}}
+         
+            
+  deploy_frondend:
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main'
+        needs: deploy_backend
+        steps:
+        - name: Checkout of repo
+          uses: actions/checkout@v4
+        - name: Deploy to production
+          uses:  JorgeLNJunior/render-deploy@v1.4.4
+          with:
+            service-id: ${{ secrets.FROND_END_API_KEY }}
+            api-key: ${{ secrets.RENDER_KEY}}
+            clear_cache: true
+            wait_deploy: true
+            github_token: ${{secrets.GH_TOKEN}}
+         
