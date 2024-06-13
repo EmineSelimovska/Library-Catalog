@@ -334,7 +334,7 @@ test("Verify That No Books Are Displayed", async ({ page }) => {
   ]);
   await page.waitForSelector("#dashboard-page");
 
-  const noBookMessage = await page.textContent(".no-books");
+  const noBookMessage = await page.$$(".no-books");
   expect(noBookMessage).toBe("No Books in the Database!");
 });
 
