@@ -335,7 +335,7 @@ test("Verify That No Books Are Displayed", async ({ page }) => {
   await page.waitForSelector("#dashboard-page");
 
   const noBookMessage = await page.$$(".no-books");
-  expect(noBookMessage).toEqual(0);
+  expect(noBookMessage.length).toEqual(0);
 });
 
 test("Verify That Logged-In User Sees Details Button and Button Works Correctly", async ({ page }) => {
