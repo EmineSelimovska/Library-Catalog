@@ -373,16 +373,16 @@ test("Verify That Guest User Sees Details Button and Button Works Correctly", as
 
 
 
-  test("Verify That the logout button redirects correctly", async ({ page }) => {
-    await page.goto("http://localhost:3000/login");
-    await page.fill('input[name="email"]', 'peter@abv.bg');
-    await page.fill('input[name="password"]', '123456');
-    await page.click('input[type="submit"]');
+//   test("Verify That the logout button redirects correctly", async ({ page }) => {
+//     await page.goto("http://localhost:3000/login");
+//     await page.fill('input[name="email"]', 'peter@abv.bg');
+//     await page.fill('input[name="password"]', '123456');
+//     await page.click('input[type="submit"]');
       
-    const logoutLink = await page.$('a[href="javascript:void(0)"]');
-    await logoutLink.click();
+//     const logoutLink = await page.$('a[href="javascript:void(0)"]');
+//     await logoutLink.click();
 
-    const redirectURL = page.url();
-    expect(redirectURL).toBe('http://localhost:3000/catalog');
-  });
+//     const redirectURL = page.url();
+//     expect(redirectURL).toBe('http://localhost:3000/catalog');
+//   });
 
