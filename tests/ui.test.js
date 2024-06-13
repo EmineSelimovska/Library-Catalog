@@ -32,6 +32,7 @@ test('Verify That the "All Books" Link Is Visible after user login', async ({pag
     await page.fill('input[name="email"]', 'peter@abv.bg');
     await page.fill('input[name="password"]', '123456');
     await page.click('input[type="submit"]');
+    
    const allBooks = await page.$('a[href="/catalog"]');
    const isAllBooksVisible = await allBooks.isVisible();
    expect(isAllBooksVisible).toBe(true);
