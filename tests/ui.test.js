@@ -292,8 +292,8 @@ test('Add book with empty URL fields', async ({page}) => {
     ]);
     await page.click('a[href="/create"]');
     await page.waitForSelector('#create-form');
-    await page.fill('#title', 'Test Book');
-    await page.fill('#description', 'This is a test book description');
+    await page.fill('input[name="title"]', 'Test Book');
+    await page.fill('input[name="decsription"]', 'This is a test book description');
     await page.selectOption('#type', 'Fiction');
 
     page.on('dialog', async dialog => {
