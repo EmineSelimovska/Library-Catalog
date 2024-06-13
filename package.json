@@ -5,7 +5,7 @@
     "main": "index.html",
     "scripts": {
         "test": "mocha tests",
-        "play": "npx playwright install && npm install -D @playwright/test",
+        "play": "npm install -D @playwright/test",
         "startFe": "http-server -a localhost -p 3000 ",
         "startBe": "node server/server.js",
         "test-play": "npx playwright test tests/ui.test.js"
