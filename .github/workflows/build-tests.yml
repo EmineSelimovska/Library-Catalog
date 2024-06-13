@@ -45,8 +45,8 @@ jobs:
           - name: Deploy to production
             uses: JorgeLNJunior/render-deploy@v1.4.4
             with:
-              service-id: ${{ secrets.Back_End_API_KEY }}
-              api-key: ${{ secrets.Render_KEY}}
+              service-id: ${{ secrets.BACK_END_API_KEY }}
+              api-key: ${{ secrets.RENDER_KEY}}
               clear_cache: true
               wait_deploy: true
               github_token: ${{secrets.GH_TOKEN}}
@@ -62,8 +62,8 @@ jobs:
         - name: Deploy to production
           uses:  JorgeLNJunior/render-deploy@v1.4.4
           with:
-            service-id: ${{ secrets.Frond_End_API_KEY }}
-            api-key: ${{ secrets.Render_KEY}}
+            service-id: ${{ secrets.FROND_END_API_KEY }}
+            api-key: ${{ secrets.RENDER_KEY}}
             clear_cache: true
             wait_deploy: true
             github_token: ${{secrets.GH_TOKEN}}
