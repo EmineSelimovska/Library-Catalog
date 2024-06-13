@@ -126,9 +126,9 @@ test('Submit the Form with Empty Password Input Field', async ({page}) => {
 
 test('Submit the Register Form with Valid Values', async ({page}) => {
     await page.goto('http://localhost:3000/register');
-    await page.fill('input[type="email"]', 'sofi@abv.bg');
-    await page.fill('input[type="password"]', '123456');
-    await page.fill('input[type="repeat-pass"]', '123456')
+    await page.fill('input[name="email"]', 'sofi@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.fill('input[name="confirm-pass"]', '123456')
     await page.click('input[type="submit"]')
     await page.$('a[href="/catalog"]');
 
@@ -150,7 +150,7 @@ test('Submit the Register Form with Empty Input Fields', async ({page}) => {
 
 test('Submit the Register Form with Empty Email Input Field', async ({page}) => {
     await page.goto('http://localhost:3000/register');
-    await page.fill('input[type="password"]', '123456');
+    await page.fill('input[name="password"]', '123456');
     await page.click('#register-form > fieldset > input');
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
@@ -164,7 +164,7 @@ test('Submit the Register Form with Empty Email Input Field', async ({page}) => 
 
 test('Submit the Register Form with Empty Password Input Field', async ({page}) => {
     await page.goto('http://localhost:3000/register');
-    await page.fill('#email', 'sofi@abv.bg');
+    await page.fill('input[name="email"]', 'sofi@abv.bg');
     await page.click('#register-form > fieldset > input');
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
@@ -178,8 +178,8 @@ test('Submit the Register Form with Empty Password Input Field', async ({page}) 
 
 test('Submit the Register Form with Empty Confirm Password Input Field', async ({page}) => {
     await page.goto('http://localhost:3000/register');
-    await page.fill('#email', 'sofi@abv.bg');
-    await page.fill('#password', '123456');
+    await page.fill('input[name="email"]', 'sofi@abv.bg');
+    await page.fill('input[name="password"]', '123456');
     await page.click('#register-form > fieldset > input');
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
@@ -193,9 +193,9 @@ test('Submit the Register Form with Empty Confirm Password Input Field', async (
 
 test('Submit the Register Form with Empty Different Password Input Field', async ({page}) => {
     await page.goto('http://localhost:3000/register');
-    await page.fill('#email', 'sofi@abv.bg');
-    await page.fill('#password', '123456');
-    await page.fill('#repeat-pass', '123457');
+    await page.fill('input[name="email"]', 'sofi@abv.bg');
+    await page.fill('input[name="password"]', '123456');
+    await page.fill('input[name="confirm-pass"]', '123457');
     await page.click('#register-form > fieldset > input');
     page.on('dialog', async dialog => {
         expect(dialog.type()).toContain('Alert');
@@ -209,8 +209,8 @@ test('Submit the Register Form with Empty Different Password Input Field', async
 
 test('Add book with correct data', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.fill('#password', '123456');
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
 
     await Promise.all([
      page.click('input[type="submit"]'),
@@ -231,8 +231,8 @@ test('Add book with correct data', async ({page}) => {
 
 test('Add book with empty title fields', async ({page}) => {
     await page.goto('http://localhost:3000/login');
-    await page.fill('#email', 'peter@abv.bg');
-    await page.fill('#password', '123456');
+    await page.fill('input[name="email"]', 'peter@abv.bg');
+    await page.fill('input[name="password"]', '123456');
 
     await Promise.all([
      page.click('input[type="submit"]'),
