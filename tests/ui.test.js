@@ -68,7 +68,7 @@ test('Verify That the user email address is Visible after user login', async ({p
     await page.click('input[type="submit"]')
    const email = await page.$('#user > span');
    const isUserEmailVisible = await email.isVisible();
-   expect(isUserEmailVisible).toEqual(true);
+   expect(isUserEmailVisible).toBe(true);
 
 });
 
@@ -77,6 +77,8 @@ test('Login with valid credentials', async ({page}) => {
     await page.fill('input[name="email"]', 'peter@abv.bg');
     await page.fill('input[name="password"]', '123456');
     await page.click('input[type="submit"]');
+
+    await page.waitForURL("http://localhost:3000/catalog")
     await page.$('a[href="/catalog"]');
 
    expect(page.url()).toBe('http://localhost:3000/catalog');
